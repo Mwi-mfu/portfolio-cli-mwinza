@@ -2,35 +2,62 @@ import { createInterface } from 'node:readline/promises';
 
 const rl = createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
+  terminal: true
 });
 
-let active = true;
 
 async function main() {
+  let active = true;
   while (active) {
     menu();
     let option;
     await rl.question('PICK AN OPTION:', (input) => {
-      input;
       option = input;
+      console.log(option)
       rl.close();
     });
+
+
+    switch (option) {
+      case "1":
+        show_AboutMe();
+        break;
+      case "2":
+        show_SkillsToLearn();
+        break;
+      case "3":
+        show_Projects();
+        break;
+      case "4":
+        show_FuturePlans();
+        break;
+      case "5":
+        exit();
+        break;
+      default:
+        console.log("ENTER A VALID OPTION \n");
+        main();
+    }
   };
 }
 
 
 function menu() {
-   console.log("==============================");
-   console.log("       MY PORTFOLIO APP");
-   console.log("==============================");
-   const options = ["About Me", "Skills I want to learn", "My projects", "My future plans", "Exit \n"];
-   console.log("1. About Me");
-   console.log("2. Skills I want to learn");
-   console.log("3. My projects");
-   console.log("4. My future plans");
-   console.log("5. Exit \n");
-   console.log("PICK AN OPTION: ");
+  console.log("==============================");
+  console.log("       MY PORTFOLIO APP");
+  console.log("==============================");
+
+
+  const options = [
+    "About me", 
+    "Skills I want to learn", 
+    "My projects", 
+    "My future plans", 
+    "Exit \n"
+  ];
+   
+  printLoop(options);
 }
 
 function show_AboutMe(){
@@ -46,13 +73,9 @@ function show_SkillsToLearn() {
     'Automation and Scripting',
     'Database management'
   ]
-  let index = 1;
 
   console.log("The skills I wish to learn are:")
-  for (let skill of skills) {
-    console.log(`${index}. ${skill}`);
-    index = index + 1;
-  }
+  printLoop(skills);
 }
 
 
@@ -62,13 +85,9 @@ function show_Projects() {
     'Todo List API',
     'Utilities for arch linux'
   ]
-  let index = 1;
 
   console.log("The projects I have done:")
-  for (let project of projects) {
-    console.log(`${index}. ${project}`);
-    index = index + 1;
-  }
+  printLoop(projects);
 }
 
 
@@ -79,13 +98,9 @@ function show_FuturePlans() {
     'Create a linux distribution',
     'Cooperating with notable actors in the industry'
   ]
-  let index = 1;
 
   console.log("Plans for the future:")
-  for (let plan of plans) {
-    console.log(`${index}. ${plan}`);
-    index = index + 1;
-  }
+  printLoop(plans);
 }
 
 function exit() {
@@ -99,5 +114,14 @@ async function consoleInput() {
     rl.close()
   });
 } 
+
+// Loops through arrays of Items
+function printLoop (arr) {
+  let index = 1;
+  for (let element of arr) {
+    console.log(`${index}. ${element}`);
+    index = index + 1;
+  }
+}
 
 main();
