@@ -1,4 +1,4 @@
-import { createInterface } from 'readline';
+import { createInterface } from 'node:readline/promises';
 
 const rl = createInterface({
   input: process.stdin,
@@ -7,12 +7,12 @@ const rl = createInterface({
 
 let active = true;
 
-function main() {
+async function main() {
   while (active) {
     menu();
     let option;
-    rl.question('PICK AN OPTION:', async (input) => {
-      await input;
+    await rl.question('PICK AN OPTION:', (input) => {
+      input;
       option = input;
       rl.close();
     });
@@ -24,6 +24,7 @@ function menu() {
    console.log("==============================");
    console.log("       MY PORTFOLIO APP");
    console.log("==============================");
+   const options = ["About Me", "Skills I want to learn", "My projects", "My future plans", "Exit \n"];
    console.log("1. About Me");
    console.log("2. Skills I want to learn");
    console.log("3. My projects");
@@ -72,7 +73,19 @@ function show_Projects() {
 
 
 function show_FuturePlans() {
+  const plans = [
+    'Master Express framework',
+    'Build backends',
+    'Create a linux distribution',
+    'Cooperating with notable actors in the industry'
+  ]
+  let index = 1;
 
+  console.log("Plans for the future:")
+  for (let plan of plans) {
+    console.log(`${index}. ${plan}`);
+    index = index + 1;
+  }
 }
 
 function exit() {
@@ -81,10 +94,10 @@ function exit() {
 
 
 async function consoleInput() {
-  rl.question("What is your option", (input) => {
+  await rl.quest("What is your option", (input) => {
     console.log(input);
     rl.close()
   });
 } 
 
-show_Projects();
+main();
