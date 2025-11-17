@@ -1,44 +1,45 @@
-import { createInterface } from 'node:readline/promises';
+import readline from "node:readline/promises";
 
-const rl = createInterface({
+
+const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout,
-  terminal: true
+  output: process.stdout
 });
 
 
+let active = true;
+
 async function main() {
-  let active = true;
   while (active) {
     menu();
-    let option;
-    await rl.question('PICK AN OPTION:', (input) => {
-      option = input;
-      console.log(option)
-      rl.close();
-    });
-
-
-    switch (option) {
+    const answer = await rl.question("PICK AN OPTION: ");
+    
+    switch (answer) {
       case "1":
+        console.clear();
         show_AboutMe();
         break;
       case "2":
+        console.clear();
         show_SkillsToLearn();
         break;
       case "3":
+        console.clear();
         show_Projects();
         break;
       case "4":
+        console.clear();
         show_FuturePlans();
         break;
       case "5":
+        console.clear();
         exit();
         break;
       default:
+        console.clear();
         console.log("ENTER A VALID OPTION \n");
-        main();
-    }
+        break;
+    };
   };
 }
 
@@ -62,7 +63,7 @@ function menu() {
 
 function show_AboutMe(){
   console.log("ABOUT ME")
-  console.log("My name is Mwinza Mufune. I'm a tech enthusiast who is interested in various fields of tech. My main interests are backend development, networking and operating systems. I'm eager to learn and willing to take on various challenges to achieve my goals.");
+  console.log("My name is Mwinza Mufune. I'm a tech enthusiast who is interested in various fields of tech. \nMy main interests are backend development, networking and operating systems. I'm eager to learn and willing to take on various challenges to achieve my goals. \n\n");
 }
 
 
@@ -71,7 +72,7 @@ function show_SkillsToLearn() {
     'Computer networking',
     'Low level programming',
     'Automation and Scripting',
-    'Database management'
+    'Database management \n\n'
   ]
 
   console.log("The skills I wish to learn are:")
@@ -83,7 +84,7 @@ function show_Projects() {
   const projects = [
     'Notes API',
     'Todo List API',
-    'Utilities for arch linux'
+    'Utilities for arch linux \n\n'
   ]
 
   console.log("The projects I have done:")
@@ -96,7 +97,7 @@ function show_FuturePlans() {
     'Master Express framework',
     'Build backends',
     'Create a linux distribution',
-    'Cooperating with notable actors in the industry'
+    'Cooperating with notable actors in the industry\n\n'
   ]
 
   console.log("Plans for the future:")
@@ -104,16 +105,10 @@ function show_FuturePlans() {
 }
 
 function exit() {
+  console.log("CLOSING");
   active = false;
+  rl.close();
 }
-
-
-async function consoleInput() {
-  await rl.quest("What is your option", (input) => {
-    console.log(input);
-    rl.close()
-  });
-} 
 
 // Loops through arrays of Items
 function printLoop (arr) {
