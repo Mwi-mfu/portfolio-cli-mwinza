@@ -19,6 +19,6 @@ On Linux, look up a guide for your respective distribution.
 1. Initial usage of the `readline` module and asynchronous programming  
 2. Finding information regarding the `readline` module
 
-**Screenshot**
+**Screenshot**  
 <img width="643" height="207" alt="portfolio-cli" src="https://github.com/user-attachments/assets/b1f4b94f-a342-4211-af97-eedc88bee9ab" />
 
